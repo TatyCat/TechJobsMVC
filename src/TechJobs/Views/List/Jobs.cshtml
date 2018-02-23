@@ -2,6 +2,33 @@
 
 <h3>@ViewBag.jobs.Count Result(s)</h3>
 
-@{ 
-    // TODO #3 - Use the same list display from Views/Search/Index.cshtml 
-}
+@*Print out the job list results in table form*@
+
+    @*Code Block below to initizlize w/o*@
+   @{int i = 0;}
+
+    @foreach (Dictionary<string, string> jobDict in ViewBag.jobs)
+    {
+        <table class="job-listing">
+        @foreach (KeyValuePair<string, string> job in jobDict)
+        {
+            
+            <tr class="@(++i % 2 == 0 ? "even" : "odd")">
+
+                <td> @job.Key </td>
+            
+                <td>@job.Value</td>
+
+            </tr>
+        }
+        </table>
+
+    }
+
+
+
+
+
+
+
+
