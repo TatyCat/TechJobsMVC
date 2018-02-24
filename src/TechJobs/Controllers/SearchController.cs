@@ -17,8 +17,13 @@ namespace TechJobs.Controllers
         // search request and display results
 
         [HttpPost]
+        [Route("search/")]
         public IActionResult Results(string searchType, string searchTerm)
         {
+            ViewBag.searchType = searchType;
+            ViewBag.columns = ListController.columnChoices;
+            ViewBag.title = "Search";
+
             if (!System.String.IsNullOrEmpty(searchTerm))
             {
                 if (searchType.Equals("all"))

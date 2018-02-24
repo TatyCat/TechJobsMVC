@@ -1,52 +1,52 @@
 ﻿
-@if (ViewBag.results == null)
-{
-    <form action="/Search/Results" method="post">
-        <h2>Search by:</h2>
+<form action="/Search" method="post">
+    <h2>Search by:</h2>
 
-        <p>
-            @foreach (KeyValuePair<string, string> column in ViewBag.columns)
-            {
-                <span>
-                    <input type="radio"
-                           name="searchType"
-                           id="@column.Key"
-                           value="@column.Key"
-                           checked="@column.Key.Equals("employer")" />
-                    <label for="@column.Key">@column.Value</label>
-                </span>
-            }
-        </p>
+    <p>
+        @foreach (KeyValuePair<string, string> column in ViewBag.columns)
+        {
+        <span>
+            <input type="radio"
+                   name="searchType"
+                   id="@column.Key"
+                   value="@column.Key"
+                   checked="@column.Key.Equals("location")" 
+                   checked="@column.Key.Equals(ViewBag.searchType)" />
 
-        <p>
-            <label for="searchTerm">Keyword:</label>
-            <input type="text" name="searchTerm" id="searchTerm" />
-        </p>
+            @*checked="@column.Key.Equals("location")" />*@
 
-        <input type="submit" value="Search" />
-    </form>
-}
+            <label for="@column.Key">@column.Value</label>
+        </span>
+        }
+    </p>
 
+    <p>
+        <label for="searchTerm">Keyword:</label>
+        <input type="text" name="searchTerm" id="searchTerm" />
+    </p>
+
+    <input type="submit" value="Search" />
+</form>
 
 <hr />
+
 
 @if (ViewBag.results != null)
 {
     <h3>@ViewBag.results.Count Result(s)</h3>
 
-    // TODO #2 - Loop over jobs dictionary and display all job fields
-
     @foreach (Dictionary<string, string> jobDict in ViewBag.results)
     {
         <table class="job-listing">
-            @foreach(KeyValuePair <string, string> job in jobDict)
-             {
+            @foreach (KeyValuePair<string, string> job in jobDict)
+            {
                 <tr>
-                    <td>@job.Key</td>
+                    @* Second Word?  *@
+                    <td>@(char.ToUpper(job.Key[0]) + job.Key.Substring(1))</td>
                     <td>@job.Value</td>
                 </tr>
             }
         </table>
     }
-    
+
 }
